@@ -1,0 +1,243 @@
+<!DOCTYPE  HTML>
+<html>
+    <head>
+        <title>Grid Frontier</title>
+        <meta name="viewport" 
+            content="user-scalable=no, initial-scale=1.0,maximum-scale=1.0"/>
+    	
+        <!--Style sheet-->
+        <link rel="stylesheet" type="text/css" href="css/game.css"/>
+        
+        
+        <!--External scripts-->
+        <!--ec2-54-251-13-201.ap-southeast-1.compute.amazonaws.com-->
+        <script src="http://ec2-54-251-13-201.ap-southeast-1.compute.amazonaws.com:8080/socket.io/socket.io.js"></script>
+        <script src="script/lib/kinetic-v3.9.8.min.js"></script>
+        <script src="script/lib/requestAnimationFrame.js"></script>
+        <script src="script/lib/jquery-1.7.2.min.js"></script>
+        
+        <!--My scripts-->
+        <script src="script/client/mathlib.js"></script>
+        <script src="script/client/util.js"></script>
+        <script src="script/client/client_player.js"></script>
+        <script src="script/client/client_weapon.js"></script>
+        <script src="script/client/level.js"></script>
+        <script src="script/client/settings.js"></script>
+        <script src="script/client/messenger.js"></script>
+        <script src="script/client/scoreboard.js"></script>
+        <script src="script/client/game.js"></script>
+        
+        <!--Code -->
+        <script>
+        	$(document).ready(function(){
+        		// Pre load fonts
+	    		WebFontConfig = {
+				    google: { families: [ 'Quantico' ] },
+				    loading: function(){
+				    	console.log("Loading fonts");
+				    },
+				    active: function(){
+				    	console.log("Fonts active");
+				    	// Draw title after font has finished loading
+				    	game.drawTitle('Quantico');
+				    },
+				    inactive: function(){
+				    	console.log("Fonts inactive");
+				    	game.drawTitle('lucida console');
+				    }
+				};
+				(function() {
+				    var wf = document.createElement('script');
+				    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+				        '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+				    wf.type = 'text/javascript';
+				    wf.async = 'true';
+				    var s = document.getElementsByTagName('script')[0];
+				    s.parentNode.insertBefore(wf, s);
+				})();
+        		
+        		// Initialize game variables + builds the game level
+        		game.init();
+        		
+        		// Listener for "Join Game" button
+        		$('#Play').submit(function(event){
+        			event.preventDefault();
+        			var pName = $("#Playername").val();
+        			validate(pName);
+        		});
+        		
+        		// Hide the controls and about panels
+        		var stngs = $('#SettingsPanel');
+        		var cntrl = $('#ControlsPanel');
+        		var about = $('#AboutPanel');
+        		stngs.hide();
+        		cntrl.hide();
+        		about.hide();
+        		
+        		// Listeners for navigation buttons
+        		$('#Game').click(function(event){
+        			stngs.hide('slow');
+        			cntrl.hide('slow');
+        			about.hide('slow');
+        		});
+        		
+        		$('#Settings').click(function(event){
+        			if (!stngs.is(':visible')){
+        				stngs.show('slow');
+        				cntrl.hide('slow');
+        				about.hide('slow');
+        			}else{
+        				stngs.hide('slow');
+        			}
+        		});
+        		
+        		$('#Controls').click(function(event){
+        			if (!cntrl.is(':visible')){
+        				cntrl.show('slow');
+        				stngs.hide('slow');
+        				about.hide('slow');
+        			}else{
+        				cntrl.hide('slow');
+        			}
+        		});
+        		
+        		$('#About').click(function(event){
+        			if (!about.is(':visible')){
+        				about.show('slow');
+        				stngs.hide('slow');
+        				cntrl.hide('slow');
+        			}else{
+        				about.hide('slow');
+        			}
+        		});
+        	})
+        	
+        	function validate(Name){
+				var alphaExp = /^[a-zA-Z]+$/;
+				if (Name.match(alphaExp) && Name.length <= 10){
+					// Connect to the server
+					game.connect(Name);
+				}else{
+					alert("Names may have no more than 10 characters, and may contain only alphabets.");
+				}
+			}
+        </script>
+    </head>
+    
+    <body>
+        
+    	<div id="Title"></div>
+    	
+    	<ul id="NavBar">
+    		<li id="Game">
+    			<span>Game---</span>
+    		</li>
+    		<li id="Settings">
+    			<span>Settings-----</span>
+    		</li>
+    		<li id="Controls">
+    			<span>Controls------</span>
+    		</li>
+    		<li id="About">
+    			<span>About----</span>
+    		</li>
+    	</ul>
+        
+        
+		<form id="Play">
+			<input type="text" id="Playername" tabindex="1" placeholder="Your Name" maxlength="15">
+			<input type="submit" id="Join" value="Join Game!">
+			<p id="UsernameError"></p>
+		</form>
+			
+		
+		<div id="SettingsPanel">
+			<form id="SettingsForm" action="">
+				<h3>Game Settings</h3>
+				<input type="checkbox" id="Interpolation" value="Interpolation" checked="checked" /> Entity Interpolation<br />
+			</form>
+			<br/>
+			<br/>
+			<p>More settings coming soon...</p>
+		</div>
+		
+		
+		<div id="ControlsPanel">
+			<div id="ControlsImage"></div>
+		</div>
+		
+		
+		<div id="AboutPanel">
+			<h3><b>About Grid Frontier</b></h3>
+			<p>
+				Grid Frontier is an experimental multiplayer shooter built with the latest web technologies: 
+				<a href="http://nodejs.org/">Node.js</a>, 
+				<a href="https://developer.mozilla.org/en/HTML/Canvas">HTML5 Canvas</a> and 
+				<a href="http://www.websocket.org/">WebSockets</a>. 
+			</p>
+			<p>
+				The core purpose of the Grid Frontier project
+				is to explore the possibilites of real-time multiplayer gaming on the browser and to understand
+				the concepts of the Authoritative Server Model, asynchronous client-server communication and 
+				lag compensation. To this end, Grid Frontier has achieved much! 
+			</p>
+			
+			<h3><b>Node Server Location </b></h3>
+			<p>
+				Grid Frontier's Node server is hosted on Amazon's Elastic Compute Cloud (EC2), Asia Pacific Region (Singapore).
+			</p>
+			
+			<h3><b>About the Author </b></h3>
+			<p>
+				A student from the National University of Malaysia, Daniel enjoys programming with Java, Javascript
+				and PHP. He also has a strong interest in making games.
+			</p>
+		</div>
+		
+		
+        <div id="Viewport">
+            <div id="Space"></div>
+        </div>
+        
+        
+        <form id="ChatBox" action="">
+			<input type="text" id="ChatInput" size="60" maxlength="40" placeholder="Chat Message" autocomplete="off">
+		</form>
+			
+		
+		<div id="Hud">
+        	Players: <br/>
+        	Ping:
+        </div>
+        <div id="Ping">	</div>
+		
+		
+		<textarea id="Message" rows="6" cols="50" disabled="disabled" readonly="readonly">
+		</textarea>
+		
+		
+		<textarea id="Chat" rows="6" cols="50" disabled="disabled" readonly="readonly">
+		</textarea>
+		
+		
+		<table id="ScoreBoard">
+			<thead>
+				<tr>
+					<th scope="col" id="Player">Player</th>
+					<th scope="col" id="Kills">Kills</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>...</td>
+					<td>...</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		
+		<p id="Footer">&copy; 2012 Daniel Leng</p>
+		
+		
+    </body>
+</html>

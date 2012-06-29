@@ -1,0 +1,424 @@
+/**
+ * 	General Game Fonts
+ */
+#Join, #Playername, #Hud, #ChatBox input, #Message, #Chat, 
+#ScoreBoard, #Header, #SettingsPanel, #ControlsPanel, #AboutPanel, #Footer {
+	font-family: 'Quantico', 'Lucida Console', Courier, monospace;
+}
+
+body {
+	background-color: black;
+}
+
+#Title {
+	background: url('../asset/GF_Title_Smaller.png') no-repeat;
+		
+	width: 141px;
+	height: 30px;
+	max-width: 141px;
+	max-height: 30px;
+	
+	float: left;
+	display: block;
+	margin-top: 15px;
+	margin-left: 15px;
+}
+
+/**
+ * 	Navigation on the top-right corner of screen
+ */
+#NavBar {
+	z-index: 3;
+	
+	float: right;
+ 	
+	list-style-type: none;
+	color: rgba(0,0,0,0);
+}
+	#NavBar li {
+		padding: 0;
+		margin-right: 20px;
+		
+		display: inline-block;
+		list-style: none;
+		
+		/* Make text on div non-selectable */
+		-moz-user-select: none; 
+        -khtml-user-select: none; 
+        -webkit-user-select: none; 
+        -o-user-select: none;
+	}
+	#Game {
+		width: 62px;
+		height: 24px;
+		
+		background: url('../asset/GF_Game_Plain.png') no-repeat;
+	}
+		#Game :hover {
+			/* Change cursor animation to hands */
+			cursor: pointer;
+			background: url('../asset/GF_Game.png') no-repeat;
+		}
+	#Settings {
+		width: 82px;
+		height: 24px;
+		
+		background: url('../asset/GF_Settings_Plain.png') no-repeat;
+	}
+		#Settings :hover {
+			cursor: pointer;
+			background: url('../asset/GF_Settings.png') no-repeat;
+		}
+	#Controls {
+		width: 88px;
+		height: 24px;
+		
+		background: url('../asset/GF_Controls_Plain.png') no-repeat;
+	}
+		#Controls :hover {
+			cursor: pointer;
+			background: url('../asset/GF_Controls.png') no-repeat;
+		}
+	#About {
+		width: 62px;
+		height: 24px;
+		background: url('../asset/GF_About_Plain.png') no-repeat;
+	}
+		#About :hover {
+			cursor: pointer;
+			background: url('../asset/GF_About.png') no-repeat;
+		}
+
+/**
+ * 	Login Form
+ */
+#Play {
+	z-index: 3;
+	width: 200px;	/*200px*/
+	height: 90px;	/*90px*/
+	
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -100px;
+	
+	display: block;
+	background: rgba(65, 105, 225, 0.2);
+	outline: none;
+	
+	border-style: solid;
+	border-radius: 20px;
+	border-width: 3px;
+	border-color: white;
+}
+	#Join, #Playername {
+		outline: none;
+		display: block;
+		
+		/* Font settings */
+  		color: white;
+  		font-size: 12px;
+	}
+		#Playername {
+			width: 70%;
+			margin: auto;
+			margin-top: 15px;
+			
+			color: black;
+			
+			border-style: solid;
+			border-radius: 3px;
+			border-width: 2px;
+			border-color: silver;
+		}
+		#Join {
+			width: 40%;
+			margin: auto;
+			margin-top: 10px;
+			
+			background: rgba(75, 75, 75, 0.5);
+			
+			border-style: solid;
+			border-radius: 3px;
+			border-width: 1px;
+			border-color: silver;
+		}
+		#Join:hover {
+			background: rgba(119, 136, 153, 0.5);
+		}
+	
+/**
+ * 	Panel showing the game keyboard controls
+ */
+#SettingsPanel, #ControlsPanel, #AboutPanel{
+	z-index: 4;
+	
+	top: 50%;
+	left: 50%;
+	display: block;
+	position: fixed;
+	background: rgb(0,0,0);
+	outline: none;
+	
+	border-style: solid;
+	border-radius: 30px;
+	border-width: 3px;
+	border-color: white;
+	
+	/*Font color*/
+	color: rgb(130, 206, 250);
+}
+	#SettingsPanel {
+		width: 300px;
+		height: 300px;
+		margin-top: -150px;
+		margin-left: -150px;
+		
+		padding-top: 6px;
+		padding-bottom: 6px;
+        padding-right: 16px;
+        padding-left: 16px;
+        
+        font-size: 14px;
+	}
+		#SettingsPanel h3{
+			font-size: 1.4em;
+			color: white;
+		}
+	#ControlsPanel {
+		width: 300px;
+		height: 300px;
+		margin-top: -150px;
+		margin-left: -150px;
+		
+	}
+		#ControlsImage{
+			width: 204px;
+			height: 196px;
+			margin: auto;
+			margin-top: 50px;
+			
+			display: block;
+			background: url('../asset/Controls.png') no-repeat;
+		}
+	#AboutPanel {
+		width: 500px;
+		height: 450px;
+		margin-top: -225px;
+		margin-left: -250px;
+		
+		padding-top: 6px;
+		padding-bottom: 6px;
+        padding-right: 16px;
+        padding-left: 16px;
+	}
+		#AboutPanel h3 {
+			color: white;
+		}
+		#AboutPanel p {
+			font-size: 14px;
+		}
+
+/**
+ * 	Game play viewport
+ */
+#Viewport {
+	 z-index: 1;
+	 
+	 width: 820px;
+	 height: 470px;
+	 
+	 overflow: hidden;
+	 position: fixed;
+  	 top: 50%;
+  	 left: 50%;
+  	 margin-top: -235px;
+  	 margin-left: -410px;
+  	 
+  	 border-style: solid;
+  	 border-width: 1px;
+  	 border-color: rgba(0, 0, 0, 0);
+  	 
+  	 outline: 1px solid rgba(0, 0, 0, 0);
+}
+	/**
+	 * 	Gameplay map size
+	 */
+	#Space {
+		 z-index: 0;
+		 
+		 width: 1200px;
+		 height: 1200px;
+		 
+		 position: fixed;
+	  	 top: 50%;
+	  	 left: 50%;
+	  	 margin-top: -235px;
+	  	 margin-left: -410px;
+	}
+
+/**
+ * 	HUD: part of the viewport
+ */
+#Hud {
+	z-index: 3;
+	
+	width: 100px;
+	height: 50px;
+	
+	position: fixed;
+	display: block;
+	top: 50%;
+	left: 50%;
+	margin-top: -220px;
+	margin-left: 290px;
+	
+	background-color: rgba(100, 100, 100, 0.35);
+	
+	/* Font settings */
+	font-size: 12px;
+	color: white;
+	line-height: 200%;
+	letter-spacing: 2px;
+}
+	#Ping {
+		z-index: 3;
+		
+		width: 15px;
+		height: 15px;
+		
+		position: fixed;
+		display: block;
+		top: 50%;
+		left: 50%;
+		margin-top: -191px;
+		margin-left: 367px;
+		
+		background-color: green;
+	}
+
+/**
+ * 	In-game message panel: part of the viewport
+ */
+#Message {
+	z-index: 3;
+	
+	/* Position Settings */
+	position: fixed;
+	top: 50%;
+  	left: 50%;
+  	margin-top: -230px;
+  	margin-left: -390px;
+  	
+  	/* Display settings */
+  	overflow: hidden;
+  	display: block;
+  	background: rgba(0, 0, 0, 0);
+  	border: none;
+  	resize: none;
+  	
+  	/* Font settings */
+  	color: #87ceeb;
+  	font-size: 12px;
+}
+
+/**
+ * 	In-game chat panel: part of the viewport
+ */
+#Chat {
+	z-index: 3;
+	
+	/* Position Settings */
+	position: fixed;
+	top: 50%;
+  	left: 50%;
+  	margin-top: 90px;
+  	margin-left: -400px;
+  	
+  	/* Display settings */
+  	overflow: hidden;
+  	display: block;
+  	background: rgba(0, 0, 0, 0);
+  	border: none;
+  	resize: none;
+  	
+  	/* Font settings */
+  	color: white;
+  	/*font-family: "Lucida Console", Courier, monospace;*/
+  	font-size: 12px;
+}
+	/**
+	 * 	The chat input form
+	 */
+	#ChatBox input {
+		z-index: 3;
+		height: 1.5em;
+		
+		top: 50%;
+		left: 50%;
+		position: fixed;
+		margin-top: 200px;
+		margin-left: -400px;
+		
+		display: block;
+		background: rgba(50, 50, 50, 0.3);
+		outline: none;
+		
+		/* Font settings */
+		font-size: 12px;
+		color: white;
+		
+		/* Border settings */
+		border-radius: 4px;
+		border-color: white;
+		border-width: 1px;
+	}
+
+/**
+ * 	In-game scoreboard: part of the viewport
+ */
+#ScoreBoard {
+	z-index: 3;
+	
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -100px;
+	margin-top: -120px;
+	
+	/* Display settings */
+  	overflow: hidden;
+  	display: block;
+  	background: rgba(100, 100, 100, 0.3);
+  	
+  	/* Font Settings */
+  	font-size: 12px;
+  	color: #e6e6fa;
+}
+	#ScoreBoard th {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		border-bottom-style: solid;
+		border-bottom-width: 1px;
+		border-bottom-color: white;
+	}
+	#Player {
+		/*Top right bottom left*/
+		padding: 0px 50px 0px 50px;
+	}
+	
+	#Kills {
+		/*Top right bottom left*/
+		padding: 0px 10px 0px 10px;
+	}
+
+#Footer {
+	display: block;
+	position: fixed;
+	top: 93%;
+	left: 89%;
+	
+	font-size: 14px;
+	color: white;
+}
